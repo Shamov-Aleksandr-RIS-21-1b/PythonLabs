@@ -28,7 +28,7 @@ class Point():
 	def points_to_array(*args):
     	if not isinstance(args, Point):
     		raise TypeError("Error: Some of parametrs was not the Point.")
-    	return [i for i in args]
+    	return [*args]
 
     @staticmethod
     def distance(p1, p2):
