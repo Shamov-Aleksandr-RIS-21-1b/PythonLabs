@@ -2,7 +2,7 @@ import shape
 
 class Triangle(Shape):
 
-	def __init__(self, p1, p2, p3)
+	def __init__(self, p1, p2, p3):
 		self.points.fset(self, p1, p2, p3)
 
 	@property
