@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod, abstractproperty
-from point import Point
+from coordinates import *
 
 class Shape(ABC):
 
