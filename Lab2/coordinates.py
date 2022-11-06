@@ -39,7 +39,7 @@ class Vector(Point):
 	def __init__(self, x = None, y = None):
 		super(Vector, type(self)).__init__(self, x, y)
 
-	def set_points(self, p1, p2)
+	def set_from_points(self, p1, p2)
 		if not isinstance(p1, Point) or not isinstance(p2, Point):
 			raise TypeError("some of parameters was not the Point")
 		self.x = p2.x - p1.x
