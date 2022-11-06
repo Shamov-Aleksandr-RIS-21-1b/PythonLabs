@@ -6,7 +6,7 @@ class Shape(ABC):
 	@property
 	@abstractmethod
 	def points(self):
-		return _points
+		return self._points
 
 	@points.setter
 	@abstractmethod
