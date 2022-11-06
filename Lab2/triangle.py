@@ -1,14 +1,19 @@
-import shape
+from shape import *
 
 class Triangle(Shape):
 
-	def __init__(self, p1, p2, p3):
-		self.points.fset(self, p1, p2, p3)
+	def __init__(self, plist):
+		self.points = plist
 
 	@property
 	def points(self):
-		return super().points
+		return super(Triangle, type(self)).points
 
 	@points.setter
-	def points(self, p1, p2, p3):
-		super().points.fset(self, p1, p2, p3)
+	def points(self, plist):
+		if len(plist) != 3:
+			raise AttributeError("too few or too many elements")
+		super(Triangle, type(self)).points.fset(self, plist)
+
+	def get_square():
+		pass

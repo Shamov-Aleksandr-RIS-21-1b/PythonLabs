@@ -3,16 +3,25 @@ from point import Point
 
 class Shape(ABC):
 
-	@abstractmethod
 	@property
+	@abstractmethod
 	def points(self):
 		return self._points
 
-	@abstractmethod
 	@points.setter
-	def points(self, *args):
-		self._points = points_to_array(*args)
+	@abstractmethod
+	def points(self, plist):
+		if not self.is_points_list(plist):
+			raise TypeError("some of parametrs was not the Point")
+		self._points = plist
 
-    @abstractmethod
-    def get_square(self):
-    	pass
+	@staticmethod
+	def is_points_list(plist):
+		for i in range(len(plist)):
+			if not isinstance(plist[i], Point):
+				return False
+		return True
+
+	@abstractmethod
+	def get_square(self):
+		pass
