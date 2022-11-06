@@ -6,7 +6,7 @@ class Shape(ABC):
 	@property
 	@abstractmethod
 	def points(self):
-		return self._points
+		return _points
 
 	@points.setter
 	@abstractmethod
@@ -41,5 +41,11 @@ class Triangle(Shape):
 			raise AttributeError("too few or too many elements")
 		super(Triangle, type(self)).points.fset(self, plist)
 
-	def get_square():
-		pass
+	def get_square(self):
+		vect01 = Vector().set_from_points(self.points[0], self.points[1])
+		vect02 = Vector().set_from_points(self.points[0], self.points[2])
+		side02 = Point.distance(self.points[0], self.points[2])
+		subside02 = Vector.scalarprod(vect01, vect02) / side02
+		side01 = Point.distance(self.points[0], self.points[1])
+		height = (side01 ** 2 - subside02 ** 2) ** 0.5
+		return height * side01 / 2
