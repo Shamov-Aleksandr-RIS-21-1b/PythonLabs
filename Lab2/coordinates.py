@@ -46,7 +46,7 @@ class Vector(Point):
 		self.y = p2.y - p1.y
 
 	@staticmethod
-	def mvectors(v1, v2):
+	def scalarprod(v1, v2):
 		if not isinstance(v1, Vector) or not isinstance(v2, Vector):
 			raise TypeError("some of parameters was not the Vector")
 		return v1.x * v2.x + v1.y * v2.y
