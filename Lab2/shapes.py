@@ -42,10 +42,12 @@ class Triangle(Shape):
 		super(Triangle, type(self)).points.fset(self, plist)
 
 	def get_square(self):
-		vect01 = Vector().set_from_points(self.points[0], self.points[1])
-		vect02 = Vector().set_from_points(self.points[0], self.points[2])
-		side02 = Point.distance(self.points[0], self.points[2])
+		vect01 = Vector()
+		vect01.set_from_points(self.points[0], self.points[1])
+		side01 = vect01.modulus()
+		vect02 = Vector()
+		vect02.set_from_points(self.points[0], self.points[2])
+		side02 = vect02.modulus()
 		subside02 = Vector.scalarprod(vect01, vect02) / side02
-		side01 = Point.distance(self.points[0], self.points[1])
 		height = (side01 ** 2 - subside02 ** 2) ** 0.5
 		return height * side01 / 2

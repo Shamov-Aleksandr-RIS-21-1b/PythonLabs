@@ -1,4 +1,20 @@
+class NumberDescriptor():
+
+	def __init__(self, name):
+		self._name = name
+
+	def __get__(self, instance, owner):
+		return instance.__dict__[self._name]
+
+	def __set__(self, instance, value):
+		if not isinstance(value, int | float):
+			raise TypeError("parameter was not the number")
+		instance.__dict__[self._name] = value
+
 class Point():
+
+	x = NumberDescriptor("xCoord")
+	y = NumberDescriptor("yCoord")
 
 	def __init__(self, x = None, y = None):
 		if x is None:
@@ -7,26 +23,6 @@ class Point():
 			y = 0
 		self.x = x
 		self.y = y
-
-	@property
-	def x(self):
-		return self._x
-
-	@x.setter
-	def x(self, x):
-		if not isinstance(x, int) and not isinstance(x, float):
-			raise TypeError("parameter was not the number")
-		self._x = x
-
-	@property
-	def y(self):
-		return self._y
-
-	@y.setter
-	def y(self, y):
-		if not isinstance(y, int) and not isinstance(y, float):
-			raise TypeError("parameter was not the number")
-		self._y = y
 
 	@staticmethod
 	def distance(p1, p2):
@@ -50,3 +46,6 @@ class Vector(Point):
 		if not isinstance(v1, Vector) or not isinstance(v2, Vector):
 			raise TypeError("some of parameters was not the Vector")
 		return v1.x * v2.x + v1.y * v2.y
+
+	def modulus(self):
+		return (self.x ** 2 + self.x ** 2) ** 0.5
