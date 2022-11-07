@@ -3,14 +3,12 @@ from coordinates import *
 
 class Shape(ABC):
 
-	@property
 	@abstractmethod
-	def points(self):
+	def points_get(self):
 		return self._points
 
-	@points.setter
 	@abstractmethod
-	def points(self, plist):
+	def points_set(self, plist):
 		if not self.is_points_list(plist):
 			raise TypeError("some of parametrs was not the Point")
 		self._points = plist
@@ -29,17 +27,17 @@ class Shape(ABC):
 class Triangle(Shape):
 
 	def __init__(self, plist):
-		self.points = plist
+		self.points_set(plist)
 
-	@property
-	def points(self):
-		return super(Triangle, type(self)).points
+	def points_get(self):
+		return super(Triangle, type(self)).points_get(self)
 
-	@points.setter
-	def points(self, plist):
+	def points_set(self, plist):
 		if len(plist) != 3:
 			raise AttributeError("too few or too many elements")
-		super(Triangle, type(self)).points.fset(self, plist)
+		super(Triangle, type(self)).points_set(self, plist)
+
+	points = property(points_get, points_set)
 
 	def get_square(self):
 		vect01 = Vector()
@@ -50,4 +48,4 @@ class Triangle(Shape):
 		side02 = vect02.modulus()
 		subside02 = Vector.scalarprod(vect01, vect02) / side02
 		height = (side01 ** 2 - subside02 ** 2) ** 0.5
-		return height * side01 / 2
+		return height * side02 / 2

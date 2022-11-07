@@ -13,14 +13,13 @@ class NumberDescriptor():
 
 class Point():
 
-	x = NumberDescriptor("xCoord")
-	y = NumberDescriptor("yCoord")
-
 	def __init__(self, x = None, y = None):
 		if x is None:
 			x = 0
 		if y is None:
 			y = 0
+		self.x = NumberDescriptor("xCoord")
+		self.y = NumberDescriptor("yCoord")
 		self.x = x
 		self.y = y
 
@@ -28,7 +27,7 @@ class Point():
 	def distance(p1, p2):
 		if not isinstance(p1, Point) or not isinstance(p2, Point):
 			raise TypeError("some of parameters was not the Point")
-		return ((p1.x - p2.x) ** 2 + (p1.x - p2.x) ** 2) ** 0.5
+		return ((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2) ** 0.5
 
 class Vector(Point):
 
@@ -48,4 +47,7 @@ class Vector(Point):
 		return v1.x * v2.x + v1.y * v2.y
 
 	def modulus(self):
-		return (self.x ** 2 + self.x ** 2) ** 0.5
+		return (self.x ** 2 + self.y ** 2) ** 0.5
+
+	def __abs__(self):
+		return modulus(self)
