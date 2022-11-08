@@ -35,11 +35,11 @@ class Vector(Point):
 	def __init__(self, x = None, y = None):
 		super(Vector, type(self)).__init__(self, x, y)
 
-	def set_from_points(self, p1, p2):
+	@classmethod
+	def set_from_points(cls, p1, p2):
 		if not isinstance(p1, Point) or not isinstance(p2, Point):
 			raise TypeError("some of parameters was not the Point")
-		self.x = p2.x - p1.x
-		self.y = p2.y - p1.y
+		return cls(p2.x - p1.x, p2.y - p1.y)
 
 	@staticmethod
 	def scalarprod(v1, v2):

@@ -52,11 +52,9 @@ class Triangle(Shape):
 	points = property(_points_get, _points_set)
 
 	def get_square(self):
-		vect01 = Vector()
-		vect01.set_from_points(self.points[0], self.points[1])
+		vect01 = Vector.set_from_points(self.points[0], self.points[1])
 		side01 = vect01.modulus()
-		vect02 = Vector()
-		vect02.set_from_points(self.points[0], self.points[2])
+		vect02 = Vector.set_from_points(self.points[0], self.points[2])
 		side02 = vect02.modulus()
 		subside02 = Vector.scalarprod(vect01, vect02) / side02
 		height = (side01 ** 2 - subside02 ** 2) ** 0.5
@@ -97,11 +95,9 @@ class Rectangle(Shape):
 	points = property(_points_get, _points_set)
 
 	def get_square(self):
-		vect01 = Vector()
-		vect01.set_from_points(self.points[0], self.points[1])
+		vect01 = Vector.set_from_points(self.points[0], self.points[1])
 		side01 = vect01.modulus()
-		vect03 = Vector()
-		vect03.set_from_points(self.points[0], self.points[3])
+		vect03 = Vector.set_from_points(self.points[0], self.points[3])
 		side03 = vect03.modulus()
 		subside03 = Vector.scalarprod(vect01, vect03) / side03
 		height = (side01 ** 2 - subside03 ** 2) ** 0.5
