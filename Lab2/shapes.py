@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod, abstractproperty
 from coordinates import *
 from statistics import mean
+import math
 
 class Shape(ABC):
 
@@ -76,3 +77,25 @@ class Rectangle(Shape):
 		subside03 = Vector.scalarprod(vect01, vect03) / side03
 		height = (side01 ** 2 - subside03 ** 2) ** 0.5
 		return height * side03
+
+class Ellipse(Shape):
+
+	def __init__(self, center, shalfaxis, lhalfaxis):
+		self.points_set(center)
+		self.shalfaxis = NumberDescriptor("shalfaxis")
+		self.lhalfaxis = NumberDescriptor("lhalfaxis")
+		self.shalfaxis = shalfaxis
+		self.lhalfaxis = lhalfaxis
+
+	def points_get(self):
+		return super(Ellipse, type(self)).points_get(self)
+
+	def points_set(self, center):
+		if not isinstance(center, Point):
+			raise TypeError("parametr was not the Point")
+		self._points = center
+
+	center = property(points_get, points_set)
+
+	def get_square(self):
+		return math.pi * self.shalfaxis * self.lhalfaxis
