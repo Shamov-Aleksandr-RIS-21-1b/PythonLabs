@@ -61,13 +61,13 @@ class Triangle(Shape):
 		deltax = p2.x - p1.x
 		mdeltay = p1.y - p2.y
 		if deltax == 0:
-			if deltay == 0:
+			if mdeltay == 0:
 				return False
 			elif p0.x == p1.x:
 				return False
 			else:
 				return True
-		k = (p1.y - p2.y) / deltax
+		k = mdeltay / deltax
 		b = (p1.x * p2.y - p2.x * p1.y) / deltax
 		if p0.y == p0.x * k + b:
 			return False
