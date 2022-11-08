@@ -11,7 +11,7 @@ class Shape(ABC):
 
 	@abstractmethod
 	def points_set(self, plist):
-		if not self.is_points_list(plist):
+		if not Shape.is_points_list(plist):
 			raise TypeError("some of parametrs was not the Point")
 		self._points = plist
 
@@ -38,6 +38,8 @@ class Triangle(Shape):
 		if len(plist) != 3:
 			raise AttributeError("too few or too many elements")
 		super(Triangle, type(self)).points_set(self, plist)
+		if not Triangle.is_exist(self.points[0], self.points[1], self.points[2]):
+			raise AttributeError("this triangle is not exists")
 
 	points = property(points_get, points_set)
 
@@ -51,6 +53,17 @@ class Triangle(Shape):
 		subside02 = Vector.scalarprod(vect01, vect02) / side02
 		height = (side01 ** 2 - subside02 ** 2) ** 0.5
 		return height * side02 / 2
+
+	@staticmethod
+	def is_exist(p0, p1, p2):
+		if not isinstance(p0, Point) or not isinstance(p2, Point) or not isinstance(p2, Point):
+			raise TypeError("some of parameters was not the Point")
+		deltax = (p2.x - p1.x)
+		k = (p1.y - p2.y) / deltax
+		b = (p1.x * p2.y - p2.x * p1.y) / deltax
+		if p0.y == p0.x * k + b:
+			return False
+		return True
 
 class Rectangle(Shape):
 
