@@ -1,3 +1,5 @@
+from math import acos
+
 class NumberDescriptor():
 
 	def __init__(self, name):
@@ -46,6 +48,10 @@ class Vector(Point):
 		if not isinstance(v1, Vector) or not isinstance(v2, Vector):
 			raise TypeError("some of parameters was not the Vector")
 		return v1.x * v2.x + v1.y * v2.y
+
+	@staticmethod
+	def get_angle(v1, v2):
+		return acos(Vector.scalarprod(v1, v2) / (v1.modulus() * v2.modulus()))
 
 	def modulus(self):
 		return (self.x ** 2 + self.y ** 2) ** 0.5
