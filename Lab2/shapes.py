@@ -6,11 +6,11 @@ import math
 class Shape(ABC):
 
 	@abstractmethod
-	def points_get(self):
+	def _points_get(self):
 		return self._points
 
 	@abstractmethod
-	def points_set(self, plist):
+	def _points_set(self, plist):
 		if not Shape.is_points_list(plist):
 			raise TypeError("some of parametrs was not the Point")
 		self._points = plist
@@ -29,19 +29,19 @@ class Shape(ABC):
 class Triangle(Shape):
 
 	def __init__(self, p0, p1, p2):
-		self.points_set([p0, p1, p2])
+		self._points_set([p0, p1, p2])
 
-	def points_get(self):
-		return super(Triangle, type(self)).points_get(self)
+	def _points_get(self):
+		return super(Triangle, type(self))._points_get(self)
 
-	def points_set(self, plist):
+	def _points_set(self, plist):
 		if len(plist) != 3:
 			raise AttributeError("too few or too many elements")
-		super(Triangle, type(self)).points_set(self, plist)
+		super(Triangle, type(self))._points_set(self, plist)
 		if not Triangle.is_exist(self.points[0], self.points[1], self.points[2]):
 			raise AttributeError("this triangle is not exists")
 
-	points = property(points_get, points_set)
+	points = property(_points_get, _points_set)
 
 	def get_square(self):
 		vect01 = Vector()
@@ -58,7 +58,15 @@ class Triangle(Shape):
 	def is_exist(p0, p1, p2):
 		if not isinstance(p0, Point) or not isinstance(p2, Point) or not isinstance(p2, Point):
 			raise TypeError("some of parameters was not the Point")
-		deltax = (p2.x - p1.x)
+		deltax = p2.x - p1.x
+		mdeltay = p1.y - p2.y
+		if deltax == 0:
+			if deltay == 0:
+				return False
+			elif p0.x == p1.x:
+				return False
+			else:
+				return True
 		k = (p1.y - p2.y) / deltax
 		b = (p1.x * p2.y - p2.x * p1.y) / deltax
 		if p0.y == p0.x * k + b:
@@ -68,17 +76,17 @@ class Triangle(Shape):
 class Rectangle(Shape):
 
 	def __init__(self, p0, p1, p2, p3):
-		self.points_set([p0, p1, p2, p3])
+		self._points_set([p0, p1, p2, p3])
 
-	def points_get(self):
-		return super(Rectangle, type(self)).points_get(self)
+	def _points_get(self):
+		return super(Rectangle, type(self))._points_get(self)
 
-	def points_set(self, plist):
+	def _points_set(self, plist):
 		if len(plist) != 4:
 			raise AttributeError("too few or too many elements")
-		super(Rectangle, type(self)).points_set(self, plist)
+		super(Rectangle, type(self))._points_set(self, plist)
 
-	points = property(points_get, points_set)
+	points = property(_points_get, _points_set)
 
 	def get_square(self):
 		vect01 = Vector()
@@ -94,21 +102,21 @@ class Rectangle(Shape):
 class Ellipse(Shape):
 
 	def __init__(self, center, shalfaxis, lhalfaxis):
-		self.points_set(center)
+		self._points_set(center)
 		self.shalfaxis = NumberDescriptor("shalfaxis")
 		self.lhalfaxis = NumberDescriptor("lhalfaxis")
 		self.shalfaxis = shalfaxis
 		self.lhalfaxis = lhalfaxis
 
-	def points_get(self):
-		return super(Ellipse, type(self)).points_get(self)
+	def _points_get(self):
+		return super(Ellipse, type(self))._points_get(self)
 
-	def points_set(self, center):
+	def _points_set(self, center):
 		if not isinstance(center, Point):
 			raise TypeError("parametr was not the Point")
 		self._points = center
 
-	center = property(points_get, points_set)
+	center = property(_points_get, _points_set)
 
 	def get_square(self):
 		return math.pi * self.shalfaxis * self.lhalfaxis
