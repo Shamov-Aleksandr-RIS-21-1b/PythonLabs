@@ -28,8 +28,8 @@ class Shape(ABC):
 
 class Triangle(Shape):
 
-	def __init__(self, plist):
-		self.points_set(plist)
+	def __init__(self, p0, p1, p2):
+		self.points_set([p0, p1, p2])
 
 	def points_get(self):
 		return super(Triangle, type(self)).points_get(self)
@@ -54,8 +54,8 @@ class Triangle(Shape):
 
 class Rectangle(Shape):
 
-	def __init__(self, plist):
-		self.points_set(plist)
+	def __init__(self, p0, p1, p2, p3):
+		self.points_set([p0, p1, p2, p3])
 
 	def points_get(self):
 		return super(Rectangle, type(self)).points_get(self)
