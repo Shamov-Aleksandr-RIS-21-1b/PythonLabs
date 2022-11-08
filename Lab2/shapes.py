@@ -3,6 +3,14 @@ from coordinates import *
 from statistics import mean
 import math
 
+class PositiveNumberDescriptor(NumberDescriptor):
+	def __set__(self, instance, value):
+		if not isinstance(value, int | float):
+			raise TypeError("parameter was not the number")
+		if value <= 0:
+			raise AttributeError(f"need positive number, value = {value}")
+		instance.__dict__[self._name] = value
+
 class Shape(ABC):
 
 	@abstractmethod
@@ -101,10 +109,11 @@ class Rectangle(Shape):
 
 class Ellipse(Shape):
 
+	shalfaxis = PositiveNumberDescriptor("shalfaxis")
+	lhalfaxis = PositiveNumberDescriptor("lhalfaxis")
+
 	def __init__(self, center, shalfaxis, lhalfaxis):
 		self._points_set(center)
-		self.shalfaxis = NumberDescriptor("shalfaxis")
-		self.lhalfaxis = NumberDescriptor("lhalfaxis")
 		self.shalfaxis = shalfaxis
 		self.lhalfaxis = lhalfaxis
 

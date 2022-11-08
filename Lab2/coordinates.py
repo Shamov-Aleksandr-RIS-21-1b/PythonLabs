@@ -13,13 +13,14 @@ class NumberDescriptor():
 
 class Point():
 
+	x = NumberDescriptor("xCoord")
+	y = NumberDescriptor("yCoord")
+
 	def __init__(self, x = None, y = None):
 		if x is None:
 			x = 0
 		if y is None:
 			y = 0
-		self.x = NumberDescriptor("xCoord")
-		self.y = NumberDescriptor("yCoord")
 		self.x = x
 		self.y = y
 
