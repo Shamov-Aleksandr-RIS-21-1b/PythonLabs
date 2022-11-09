@@ -69,10 +69,9 @@ class Triangle(Shape):
 		if deltax == 0:
 			if deltay == 0:
 				return False
-			elif p0.x == p1.x:
+			if p0.x == p1.x:
 				return False
-			else:
-				return True
+			return True
 		k = deltay / deltax
 		b = (p2.x * p1.y - p1.x * p2.y) / deltax
 		return p0.y != p0.x * k + b
@@ -100,34 +99,39 @@ class Rectangle(Shape):
 		d02 = dvect02.modulus()
 		d13 = dvect13.modulus()
 		angle = Vector.get_angle(dvect02, dvect13)
-		return d02 * d13 * sin(angle) / 2
+		return d02 * d13 * abs(sin(angle)) / 2
 
 	@staticmethod
 	def is_exist(p0, p1, p2, p3):
-		if (not Triangle.is_exist(p0, p1, p2) or 
-			not Triangle.is_exist(p1, p2, p3) or 
-			not Triangle.is_exist(p2, p3, p0) or 
-			not Triangle.is_exist(p3, p0, p1)):
-			return False
-		deltax = p2.x - p1.x
-		deltay = p2.y - p1.y
-		if deltax == 0:
-			if p0.x < p1.x:
-				return p3.x < p1.x
-			else:
-				return p3.x > p1.x
-		elif deltay == 0:
-			if p0.y < p1.y:
-				return p3.y < p1.y
-			else:
-				return p3.y > p1.y
-		else: 
-			k = deltay / deltax
-			b = (p2.x * p1.y - p1.x * p2.y) / deltax
-			if p0.y < k * p0.x + b:
-				return p3.y < k * p3.x + b
-			else:
-				return p3.y > k * p3.x + b
+		deltax02 = p2.x - p0.x
+		deltax13 = p3.x - p1.x
+		deltay02 = p2.y - p0.y
+		deltay13 = p3.y - p1.y
+		if deltax02 == 0:
+			if deltax13 == 0:
+				return False
+			k13 = deltay13 / deltax13
+			b13 = (p3.x * p1.y - p1.x * p3.y) / deltax13
+			x_intersect = p0.x
+			intersection = Point(x_intersect, k13 * x_intersect + b13)
+		elif deltax13 == 0:
+			if deltax02 == 0:
+				return False
+			x_intersect = p1.x
+			k02 = deltay02 / deltax02
+			b02 = (p2.x * p0.y - p0.x * p2.y) / deltax02
+			intersection = Point(x_intersect, k02 * x_intersect + b02)
+		else:
+			k02 = deltay02 / deltax02
+			k13 = deltay13 / deltax13
+			if k02 == k13:
+				return False
+			b02 = (p2.x * p0.y - p0.x * p2.y) / deltax02
+			b13 = (p3.x * p1.y - p1.x * p3.y) / deltax13
+			x_intersect = (b13 - b02) / (k02 - k13)
+			intersection = Point(x_intersect, k02 * x_intersect + b02)
+		return (Point.distance(intersection, p0) + Point.distance(intersection, p2) == Point.distance(p0, p2) 
+			and Point.distance(intersection, p1) + Point.distance(intersection, p3) == Point.distance(p1, p3))
 
 class Ellipse(Shape):
 
