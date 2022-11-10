@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 from coordinates import *
 from statistics import mean
 from math import pi, sin
