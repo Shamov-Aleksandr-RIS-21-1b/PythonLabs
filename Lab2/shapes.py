@@ -135,13 +135,13 @@ class Rectangle(Shape):
 
 class Ellipse(Shape):
 
-	shalfaxis = PositiveNumberDescriptor("shalfaxis")
-	lhalfaxis = PositiveNumberDescriptor("lhalfaxis")
+	xhalfaxis = PositiveNumberDescriptor("xhalfaxis")
+	yhalfaxis = PositiveNumberDescriptor("yhalfaxis")
 
-	def __init__(self, center, shalfaxis, lhalfaxis):
+	def __init__(self, center, xhalfaxis, yhalfaxis):
 		self._points_set(center)
-		self.shalfaxis = shalfaxis
-		self.lhalfaxis = lhalfaxis
+		self.xhalfaxis = xhalfaxis
+		self.yhalfaxis = yhalfaxis
 
 	def _points_get(self):
 		return super(Ellipse, type(self))._points_get(self)
@@ -154,4 +154,4 @@ class Ellipse(Shape):
 	center = property(_points_get, _points_set)
 
 	def get_square(self):
-		return pi * self.shalfaxis * self.lhalfaxis
+		return pi * self.xhalfaxis * self.yhalfaxis
