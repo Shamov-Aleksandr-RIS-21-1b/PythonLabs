@@ -1,5 +1,6 @@
 import json
 import os.path
+from pprint import pprint
 
 class Jsoner:
 
@@ -34,3 +35,14 @@ class Jsoner:
 		if not obj_name in data:
 			raise AttributeError(f"there is no object with this name `{obj_name}`")
 		return data[obj_name]
+
+	@staticmethod
+	def show_all():
+		data = json.load(open(Jsoner._file_name, "r", encoding = Jsoner._enc))
+		pprint(data, depth = 4, sort_dicts = False, indent = Jsoner._ind, compact = False)
+
+	@staticmethod
+	def show_obj(obj_name):
+		data = Jsoner.load(obj_name)
+		print(f"Saved '{obj_name}':")
+		pprint(data, depth = 4, sort_dicts = False, indent = Jsoner._ind, compact = False)
