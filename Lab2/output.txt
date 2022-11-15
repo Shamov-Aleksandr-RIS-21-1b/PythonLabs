@@ -1,0 +1,16 @@
+{   'Rectangle': {   'points': [   {'x': 4, 'y': 0},
+                                   {'x': 0, 'y': 2},
+                                   {'x': -4, 'y': 0},
+                                   {'x': 0, 'y': -2}]},
+    'Triangle': {   'points': [   {'x': 0, 'y': 0},
+                                  {'x': 4, 'y': 0},
+                                  {'x': 0, 'y': 4}]},
+    'Ellipse': {'center': {'x': 0, 'y': 0}, 'xhalfaxis': 4, 'yhalfaxis': 5}}
+Triangle square: 8.0
+Rectangle square: 16.0
+Ellipse square: 62.83185307179586
+Saved 'Rectangle':
+{   'points': [   {'x': 4, 'y': 0},
+                  {'x': 0, 'y': 2},
+                  {'x': -4, 'y': 0},
+                  {'x': 0, 'y': -10}]}
