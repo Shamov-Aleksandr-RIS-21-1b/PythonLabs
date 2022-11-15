@@ -32,6 +32,13 @@ class Point():
 			raise TypeError("some of parameters was not the Point")
 		return ((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2) ** 0.5
 
+	def get_json_data(self):
+		return {'x' : self.x, 'y' : self.y}
+
+	@classmethod
+	def from_json(cls, data):
+		return cls(data['x'], data['y'])
+
 class Vector(Point):
 
 	def __init__(self, x = None, y = None):

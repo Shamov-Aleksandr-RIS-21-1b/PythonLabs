@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from coordinates import *
 from statistics import mean
 from math import pi, sin
+from jsoner import *
 
 class PositiveNumberDescriptor(NumberDescriptor):
 	def __set__(self, instance, value):
@@ -32,6 +33,10 @@ class Shape(ABC):
 
 	@abstractmethod
 	def get_square(self):
+		pass
+
+	@abstractmethod
+	def get_json_data(self):
 		pass
 
 class Triangle(Shape):
@@ -75,6 +80,13 @@ class Triangle(Shape):
 		k = deltay / deltax
 		b = (p2.x * p1.y - p1.x * p2.y) / deltax
 		return p0.y != p0.x * k + b
+
+	def get_json_data(self):
+		return {'points' : [self.points[0].get_json_data(), self.points[1].get_json_data(), self.points[2].get_json_data()]}
+
+	@classmethod
+	def from_json(cls, data):
+		return cls(Point.from_json(data['points'][0]), Point.from_json(data['points'][1]), Point.from_json(data['points'][2]))
 
 class Rectangle(Shape):
 
@@ -133,6 +145,13 @@ class Rectangle(Shape):
 		return (Point.distance(intersection, p0) + Point.distance(intersection, p2) == Point.distance(p0, p2) 
 			and Point.distance(intersection, p1) + Point.distance(intersection, p3) == Point.distance(p1, p3))
 
+	def get_json_data(self):
+		return {'points' : [self.points[0].get_json_data(), self.points[1].get_json_data(), self.points[2].get_json_data(), self.points[3].get_json_data()]}
+
+	@classmethod
+	def from_json(cls, data):
+		return cls(Point.from_json(data['points'][0]), Point.from_json(data['points'][1]), Point.from_json(data['points'][2]), Point.from_json(data['points'][3]))
+
 class Ellipse(Shape):
 
 	xhalfaxis = PositiveNumberDescriptor("xhalfaxis")
@@ -155,3 +174,10 @@ class Ellipse(Shape):
 
 	def get_square(self):
 		return pi * self.xhalfaxis * self.yhalfaxis
+
+	def get_json_data(self):
+		return {'center' : self.center.get_json_data(), 'xhalfaxis' : self.xhalfaxis, 'yhalfaxis' : self.yhalfaxis}
+
+	@classmethod
+	def from_json(cls, data):
+		return cls(Point.from_json(data['center']), data['xhalfaxis'], data['yhalfaxis'])
