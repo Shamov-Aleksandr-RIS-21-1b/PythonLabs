@@ -64,4 +64,4 @@ class Vector(Point):
 		return (self.x ** 2 + self.y ** 2) ** 0.5
 
 	def __abs__(self):
-		return modulus(self)
+		return self.modulus()
