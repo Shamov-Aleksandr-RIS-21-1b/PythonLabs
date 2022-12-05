@@ -43,8 +43,8 @@ def to_dict(keys, values):
 data = list(map(clean_row, data))
 data = list(map(lambda x: to_dict(keys, x), data))
 
-prices = list(map(lambda x: x['price'], data))
-prices_sum = reduce(lambda x, y: x + y, prices)
-avg_price = prices_sum / len(prices)
+prices = list(map(lambda x: round(x['price'], 2), data))
+prices_sum = round(reduce(lambda x, y: x + y, prices), 2)
+avg_price = round(prices_sum / len(prices), 2)
 
 print(f"Сумма всех цен: {prices_sum}\nКол-во позиций: {len(prices)}\nСредняя цена: {avg_price}")
