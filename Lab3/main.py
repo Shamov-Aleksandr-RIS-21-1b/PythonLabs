@@ -12,16 +12,19 @@ keys = list(map(lambda x: x.replace('"', ""), keys))
 regexp = '\W+'
 keys[len(keys) - 1] = re.sub(regexp,'', keys[len(keys) - 1])
 
-def to_int(x):
+def to_number(x):
 	try:
 		x = int(x)
 	except ValueError:
-		pass
+		try:
+			x = float(x)
+		except ValueError:
+			pass
 	return x
 
 def clean_one(x):
 	x = x.replace('"', '')
-	x = to_int(x)
+	x = to_number(x)
 	return x
 
 def clean_row(l):
@@ -39,3 +42,9 @@ def to_dict(keys, values):
 
 data = list(map(clean_row, data))
 data = list(map(lambda x: to_dict(keys, x), data))
+
+prices = list(map(lambda x: x['price'], data))
+prices_sum = reduce(lambda x, y: x + y, prices)
+avg_price = prices_sum / len(prices)
+
+print(f"Сумма всех цен: {prices_sum}\nКол-во позиций: {len(prices)}\nСредняя цена: {avg_price}")
