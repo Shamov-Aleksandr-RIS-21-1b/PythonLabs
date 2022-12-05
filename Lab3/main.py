@@ -2,17 +2,15 @@ from functools import reduce
 import csv
 import re
 
-file = open("dataset.csv","r")
-keys = file.readline()
-reader = csv.reader(file, delimiter=",", quotechar = '"')
-data = [row for row in reader]
-file.close()
+with open("dataset.csv","r") as file:
+	keys = file.readline()
+	reader = csv.reader(file, delimiter=",", quotechar = '"')
+	data = [row for row in reader]
 
 keys = list(keys.split(","))
 keys = list(map(lambda x: x.replace('"', ""), keys))
 regexp = '\W+'
 keys[len(keys) - 1] = re.sub(regexp,'', keys[len(keys) - 1])
-print(keys)
 
 def to_int(x):
 	try:
@@ -41,4 +39,3 @@ def to_dict(keys, values):
 
 data = list(map(clean_row, data))
 data = list(map(lambda x: to_dict(keys, x), data))
-print(data)
